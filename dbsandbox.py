@@ -19,7 +19,7 @@ def get_clean(item):
     #cur.execute("SELECT id FROM CachedURL WHERE url='%s'" % urlIn)
     #item = cur.fetchone()
     item = str(item)
-    file = open("data/clean/"+item+".txt")
+    file = open("data/clean/"+item+".txt", encoding='latin')
     cleanText = file.read()
     #print(item)
     #print(cleanText)

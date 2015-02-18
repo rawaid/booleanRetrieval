@@ -5,9 +5,10 @@ from dbsandbox import get_clean
 
 def make_index():
     i = True
-    file = 0
+    fileNum = 0
+    file = 1
     index = dict()
-    while i:
+    while fileNum < 768:
         cleanText = get_clean(file)
         wordInd = 0
         docID = file
@@ -24,5 +25,9 @@ def make_index():
             i = False
         else:
             file += 1
+        fileNum += 1
+        print(index)
+
+make_index()
 
 
