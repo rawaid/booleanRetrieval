@@ -86,5 +86,5 @@ class Spider:
         for word in tokens:
             if word not in terms:
                 terms.append(word)
-        terms.sort()
+        #terms.sort()
         return terms
