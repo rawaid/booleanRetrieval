@@ -239,5 +239,3 @@ if __name__=='__main__':
     (url, docType, title) =  db.lookupCachedURL_byID(urlID);
 
     print("Page Info: ",url,"\t" , docType,"\t", title)
-
-    
