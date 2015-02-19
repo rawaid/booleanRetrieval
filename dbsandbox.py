@@ -27,6 +27,20 @@ def get_clean(item):
     cleanText = cleanText.split()
     return cleanText
 
+def get_title(id):
+    #use id to lookup title in CachedURL
+
+def get_url(id):
+    #use id to lookup url in CachedURL
+
+def get_type(id):
+    #use urlToItem to get itemID
+    #use item table to get type
+
+def get_item(id):
+    #use urlToItem to get itemID
+    #use item table to get item name
+
 
 
 
