@@ -30,7 +30,7 @@ def make_index():
         fileNum += 1
     #print(index)
     return index
-
+#added comment
 make_index()
 
 # class InvertedIndexModel:
