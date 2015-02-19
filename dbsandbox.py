@@ -38,8 +38,8 @@ def get_type(id):
     #use item table to get type
 
 def get_item(id):
-    #use urlToItem to get itemID
-    #use item table to get item name
+    # use urlToItem to get itemID
+    # use item table to get item name
 
 
 
