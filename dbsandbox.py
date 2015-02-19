@@ -21,8 +21,10 @@ def get_clean(item):
     item = str(item)
     file = open("data/clean/"+item+".txt", encoding='latin')
     cleanText = file.read()
-    print(cleanText)
+    #print(cleanText)
     #print(item)
+    #print(type(cleanText))
+    cleanText = cleanText.split()
     return cleanText
 
 

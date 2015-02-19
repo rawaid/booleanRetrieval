@@ -6,14 +6,14 @@ from collections import defaultdict
 
 def make_index():
     i = True
-    fileNum = 0
+    fileNum = 1
     file = 1
     index = dict()
-    while fileNum < 10:
-        cleanText = get_clean(file)
-        print(cleanText)
+    while fileNum < 769:
+        cleanText = get_clean(fileNum)
+        #print(cleanText)
         wordInd = 0
-        docID = file
+        docID = fileNum
         for item in cleanText:
             if item not in index:
                 index[item] = dict()
@@ -22,14 +22,6 @@ def make_index():
             index[item]
             index[item][docID].append(wordInd)
             wordInd += 1
-
-        if cleanText is None:
-            i = False
-        else:
-            file += 1
-        fileNum += 1
-        print(index)
-        print("\n")
 
 make_index()
 
