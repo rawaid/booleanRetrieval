@@ -17,6 +17,7 @@ def ui():
             print(docIDs)
             for item in docIDs:
                 print(item)
+                #change this
             ui()
         else:
             print("Query: ", query, " not found\n")
