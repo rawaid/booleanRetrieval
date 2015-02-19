@@ -46,8 +46,12 @@ def get_type(idIn):
         return(record)
 
 def get_item(idIn):
-    #use item table to get the name
-    cur.execute("SELECT name FROM Item WHERE id = '%i'" % idIn)
+    #use itemID from URLToItem table
+    #use itemID to get the name
+    cur.execute("SELECT itemID FROM URLToItem WHERE id = '%i'" % idIn)
+    for record in cur.fetchall():
+        var = record
+    cur.execute("SELECT name FROM Item WHERE id = '%i'" % var)
     for record in cur.fetchall():
         return(record)
 
@@ -60,5 +64,5 @@ def get_item(idIn):
 #get_clean(4)
 #get_title(1)
 #get_url(1)
-#get_type(1)
-#get_item(1)
+#get_type(3)
+get_item(50)
