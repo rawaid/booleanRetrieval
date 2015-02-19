@@ -20,7 +20,7 @@ def make_index():
             if docID not in index[item]:
                 index[item][docID] = list()
             index[item]
-            [docID].append(wordInd)
+            index[item][docID].append(wordInd)
             wordInd += 1
 
         if cleanText is None:
