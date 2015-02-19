@@ -9,7 +9,7 @@ def make_index():
     fileNum = 1
     file = 1
     index = dict()
-    while fileNum < 765:
+    while fileNum < 50:
         cleanText = get_clean(fileNum)
         #print(cleanText)
         wordInd = 0

@@ -10,6 +10,17 @@ def ui():
     uRes = int(uRes)
     if uRes == 1:
         query = input("Please enter a single word: ")
+        if query in indie:
+            results = indie[query]
+            print(results)
+            docIDs = results.keys()
+            print(docIDs)
+            for item in docIDs:
+                print(item)
+            ui()
+        else:
+            print("Query: ", query, " not found\n")
+            ui()
     elif uRes == 2:
         fWord = input("Please enter first word: ")
         sWord = input("Please enter second word: ")
