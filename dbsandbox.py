@@ -33,19 +33,23 @@ def get_title(idIn):
     for record in cur.fetchall():
         print(record)
 
-def get_url(id):
+def get_url(idIn):
     #use id to lookup url in CachedURL
-    return None
+    cur.execute("SELECT url FROM CachedURL WHERE id = '%i'" % idIn)
+    for record in cur.fetchall():
+        print(record)
 
-def get_type(id):
-    #use urlToItem to get itemID
-    #use item table to get type
-    return None
+def get_type(idIn):
+    #use item table to get type of item
+    cur.execute("SELECT type FROM Item WHERE id = '%i'" % idIn)
+    for record in cur.fetchall():
+        print(record)
 
-def get_item(id):
-    #use urlToItem to get itemID
-    #use item table to get item name
-    return None
+def get_item(idIn):
+    #use item table to get the name
+    cur.execute("SELECT name FROM Item WHERE id = '%i'" % idIn)
+    for record in cur.fetchall():
+        print(record)
 
 
 
@@ -55,3 +59,6 @@ def get_item(id):
 #get_urls()
 #get_clean(4)
 get_title(1)
+get_url(1)
+get_type(1)
+get_item(1)
