@@ -3,6 +3,8 @@ __author__ = 'rawaid'
 from index import make_index
 from dbsandbox import get_item, get_title, get_type, get_url
 import sys
+from nltk.stem.porter import PorterStemmer
+
 
 def ui():
     indie = make_index()
@@ -10,29 +12,39 @@ def ui():
            "\n4: Phrase Query\n5: Near Query\n6: QUIT")
     uRes = input("Enter Query Type (1-6): ")
     uRes = int(uRes)
+    ps = PorterStemmer()
     if uRes == 1:
         query = input("Please enter a single word: ")
+        query = ps.stem(query.lower())
+        #print(query)
         singleTokenQ(query, indie)
-
     elif uRes == 2:
         fWord = input("Please enter first word: ")
         sWord = input("Please enter second word: ")
+        fWord = ps.stem(fWord.lower())
+        sWord = ps.stem(sWord.lower())
         andQ(fWord, sWord, indie)
 
     elif uRes == 3:
         fWord = input("Please enter first word: ")
         sWord = input("Please enter second word: ")
+        fWord = ps.stem(fWord.lower())
+        sWord = ps.stem(sWord.lower())
         orQ(fWord, sWord, indie)
 
 
     elif uRes == 4:
         fWord = input("Please enter first word: ")
         sWord = input("Please enter second word: ")
+        fWord = ps.stem(fWord.lower())
+        sWord = ps.stem(sWord.lower())
         phraseQ(fWord, sWord, 1, indie)
 
     elif uRes == 5:
         fWord = input("Please enter first word: ")
         sWord = input("Please enter second word: ")
+        fWord = ps.stem(fWord.lower())
+        sWord = ps.stem(sWord.lower())
         nearQ(fWord, sWord, 5, indie)
 
     elif uRes == 6:
@@ -47,9 +59,9 @@ def ui():
 def singleTokenQ(query, indie):
     if query in indie:
         results = indie[query]
-        print(results)
+        #print(results)
         docIDs = results.keys()
-        print(docIDs)
+        #print(docIDs)
         i = 1
         for item in docIDs:
             title = get_title(item)
