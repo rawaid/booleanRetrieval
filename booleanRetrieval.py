@@ -132,12 +132,12 @@ def nearQ(fWord, sWord, dis, indie):
         fResults = indie[fWord]
         sResults = indie[sWord]
         fID = fResults.keys()
-        andID = []
+        nID = []
         for item in fID:
             if item in sResults:
 
-                andID.append(item)
-        for item in andID:
+                nID.append(item)
+        for item in nID:
             title = get_title(item)
             url = get_url(item)
             type = get_type(item)
