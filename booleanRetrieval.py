@@ -28,7 +28,7 @@ def ui():
     elif uRes == 4:
         fWord = input("Please enter first word: ")
         sWord = input("Please enter second word: ")
-        nearQ(fWord, sWord, 1, indie)
+        phraseQ(fWord, sWord, 1, indie)
 
     elif uRes == 5:
         fWord = input("Please enter first word: ")
@@ -47,9 +47,9 @@ def ui():
 def singleTokenQ(query, indie):
     if query in indie:
         results = indie[query]
-        #print(results)
+        print(results)
         docIDs = results.keys()
-        #print(docIDs)
+        print(docIDs)
         i = 1
         for item in docIDs:
             title = get_title(item)
@@ -130,6 +130,54 @@ def orQ(fWord, sWord, indie):
         print(fWord, "or", sWord, "not found\n")
         ui()
 
+def phraseQ(fWord, sWord, dis, indie):
+    if fWord in indie:
+        if sWord in indie:
+            fResults = indie[fWord]
+            fVal = fResults.values()
+            sResults = indie[sWord]
+            sVal = sResults.values()
+            idList = []
+
+            fID = fResults.keys()
+            andID = []
+            for item in fID:
+                if item in sResults:
+                    andID.append(item)
+
+            i = 1
+            for item in andID:
+                fInd = fResults[item]
+                #print (fInd)
+                sInd = sResults[item]
+                nInd1 = str(fInd)
+                nInd1 = nInd1[1:-1]
+                #print(nInd1)
+                nInd2 = str(sInd)
+                nInd2 = nInd2[1:-1]
+                #print("Index for word one:", nInd1, "\nIndex for word two:", nInd2)
+                fBs = int(nInd2) - int(nInd1)
+                #print (fBs)
+                fBs = 0 < fBs < dis+1
+                #print(fBs)
+                if fBs:
+                    idList.append(item)
+            if not idList:
+                print("Phrase:", fWord, sWord, "not found\n")
+                ui()
+
+            #print(idList)
+            for item in idList:
+                title = get_title(item)
+                url = get_url(item)
+                type = get_type(item)
+                subject = get_item(item)
+                print(i, ".  ", title, "\n    ", url, "\n    ", type, ": ", subject, "\n", sep='')
+                i += 1
+        ui()
+
+
+
 def nearQ(fWord, sWord, dis, indie):
     if fWord in indie:
         if sWord in indie:
@@ -145,7 +193,7 @@ def nearQ(fWord, sWord, dis, indie):
                 if item in sResults:
                     andID.append(item)
 
-
+            i = 1
             for item in andID:
                 fInd = fResults[item]
                 #print (fInd)
@@ -156,18 +204,26 @@ def nearQ(fWord, sWord, dis, indie):
                 nInd2 = str(sInd)
                 nInd2 = nInd2[1:-1]
                 #print("Index for word one:", nInd1, "\nIndex for word two:", nInd2)
-                if int(nInd1) - int(nInd2) < dis+1:
+                fBs = int(nInd1) - int(nInd2)
+                sBf = int(nInd2) - int(nInd1)
+                fBs = 0 < fBs < dis+1
+                sBf = 0 < sBf < dis+1
+                if fBs:
                     idList.append(item)
+                if sBf:
+                    idList.append(item)
+            if not idList:
+                print("Phrase:", fWord, sWord, "not found\n")
+                ui()
 
-            print(idList)
-
-
-
-
-
-
-
-
-
+            #print(idList)
+            for item in idList:
+                title = get_title(item)
+                url = get_url(item)
+                type = get_type(item)
+                subject = get_item(item)
+                print(i, ".  ", title, "\n    ", url, "\n    ", type, ": ", subject, "\n", sep='')
+                i += 1
+        ui()
 
 ui()
