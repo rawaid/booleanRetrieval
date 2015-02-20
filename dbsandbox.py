@@ -31,13 +31,13 @@ def get_title(idIn):
     #use id to lookup title in CachedURL
     cur.execute("SELECT title FROM CachedURL WHERE id = '%i'" % idIn)
     for record in cur.fetchall():
-        return(record)
+        return record
 
 def get_url(idIn):
     #use id to lookup url in CachedURL
     cur.execute("SELECT url FROM CachedURL WHERE id = '%i'" % idIn)
     for record in cur.fetchall():
-        return(record)
+        return record
 
 def get_type(idIn):
     #use URLToItem to get item ID

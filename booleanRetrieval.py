@@ -131,45 +131,43 @@ def orQ(fWord, sWord, indie):
         ui()
 
 def nearQ(fWord, sWord, dis, indie):
-    if fWord or sWord in indie:
-        if fWord in indie:
-            fResults = indie[fWord]
-        else:
-            print(fWord, "not found")
-            if sWord in indie:
-                print("Running Single Token Query for:", sWord)
-            else:
-                print(sWord, "not found")
-                ui()
-
+    if fWord in indie:
         if sWord in indie:
+            fResults = indie[fWord]
+            fVal = fResults.values()
             sResults = indie[sWord]
-        else:
-            print(sWord, "not found")
-            if fWord in indie:
-                print("Running Single Token Query for:", fWord)
-            else:
-                print(fWord, "not found")
-                ui()
+            sVal = sResults.values()
+            idList = []
 
-        fResults = indie[fWord]
-        sResults = indie[sWord]
-        fID = fResults.keys()
-        andID = []
-        i = 1
-        for item in fID:
-            if item in sResults:
-                andID.append(item)
-        for item in andID:
-            title = get_title(item)
-            url = get_url(item)
-            type = get_type(item)
-            subject = get_item(item)
-            print(i, ".  ", title, "\n    ", url, "\n    ", type, ": ", subject, "\n", sep='')
-            i += 1
-        ui()
-        ui()
-    else:
-        print(fWord, "or", sWord, "not found\n")
-        ui()
+            fID = fResults.keys()
+            andID = []
+            for item in fID:
+                if item in sResults:
+                    andID.append(item)
+
+
+            for item in andID:
+                fInd = fResults[item]
+                #print (fInd)
+                sInd = sResults[item]
+                nInd1 = str(fInd)
+                nInd1 = nInd1[1:-1]
+                #print(nInd1)
+                nInd2 = str(sInd)
+                nInd2 = nInd2[1:-1]
+                #print("Index for word one:", nInd1, "\nIndex for word two:", nInd2)
+                if int(nInd1) - int(nInd2) < dis+1:
+                    idList.append(item)
+
+            print(idList)
+
+
+
+
+
+
+
+
+
+
 ui()
