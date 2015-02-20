@@ -31,13 +31,17 @@ def get_title(idIn):
     #use id to lookup title in CachedURL
     cur.execute("SELECT title FROM CachedURL WHERE id = '%i'" % idIn)
     for record in cur.fetchall():
-        return record
+        cleanRecord = str(record)
+        cleanRecord = cleanRecord[2:-3]
+        return cleanRecord
 
 def get_url(idIn):
     #use id to lookup url in CachedURL
     cur.execute("SELECT url FROM CachedURL WHERE id = '%i'" % idIn)
     for record in cur.fetchall():
-        return record
+        cleanRecord = str(record)
+        cleanRecord = cleanRecord[2:-3]
+        return cleanRecord
 
 def get_type(idIn):
     #use URLToItem to get item ID
@@ -52,7 +56,9 @@ def get_type(idIn):
         var = record
     cur.execute("SELECT type FROM Item WHERE id = '%i'" % var)
     for record in cur.fetchall():
-        return record
+        cleanRecord = str(record)
+        cleanRecord = cleanRecord[2:-3]
+        return cleanRecord
 
 def get_item(idIn):
     #use itemID from URLToItem table
@@ -62,17 +68,9 @@ def get_item(idIn):
         var = record
     cur.execute("SELECT name FROM Item WHERE id = '%i'" % var)
     for record in cur.fetchall():
-        return record
+        cleanRecord = str(record)
+        cleanRecord = cleanRecord[2:-3]
+        return cleanRecord
 
 
 
-
-
-#get_items()
-#get_urls()
-#get_clean(4)
-#get_title(1)
-#get_url(1)
-#get_type(3)
-#get_item(50)
-#get_type(700)
