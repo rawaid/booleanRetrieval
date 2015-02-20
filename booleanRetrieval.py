@@ -64,25 +64,29 @@ def singleTokenQ(query, indie):
         ui()
 
 def andQ(fWord, sWord, indie):
-    if fWord and sWord in indie:
-        fResults = indie[fWord]
-        sResults = indie[sWord]
-        fID = fResults.keys()
-        andID = []
-        i = 1
-        for item in fID:
-            if item in sResults:
-                andID.append(item)
-        for item in andID:
-            title = get_title(item)
-            url = get_url(item)
-            type = get_type(item)
-            subject = get_item(item)
-            print(i, ".  ", title, "\n    ", url, "\n    ", type, ": ", subject, "\n", sep='')
-            i += 1
-        ui()
+    if fWord in indie:
+        if sWord in indie:
+            fResults = indie[fWord]
+            sResults = indie[sWord]
+            fID = fResults.keys()
+            andID = []
+            i = 1
+            for item in fID:
+                if item in sResults:
+                    andID.append(item)
+            for item in andID:
+                title = get_title(item)
+                url = get_url(item)
+                type = get_type(item)
+                subject = get_item(item)
+                print(i, ".  ", title, "\n    ", url, "\n    ", type, ": ", subject, "\n", sep='')
+                i += 1
+            ui()
+        else:
+            print(sWord, "not found\n")
+            ui()
     else:
-        print(fWord, "or", sWord, "not found\n")
+        print(fWord, "not found\n")
         ui()
 
 def orQ(fWord, sWord, indie):
@@ -108,7 +112,6 @@ def orQ(fWord, sWord, indie):
             else:
                 print(fWord, "not found")
                 ui()
-                return -1
 
         fID = fResults.keys()
         sID = sResults.keys()
@@ -128,27 +131,45 @@ def orQ(fWord, sWord, indie):
         ui()
 
 def nearQ(fWord, sWord, dis, indie):
-    if fWord and sWord in indie:
+    if fWord or sWord in indie:
+        if fWord in indie:
+            fResults = indie[fWord]
+        else:
+            print(fWord, "not found")
+            if sWord in indie:
+                print("Running Single Token Query for:", sWord)
+            else:
+                print(sWord, "not found")
+                ui()
+
+        if sWord in indie:
+            sResults = indie[sWord]
+        else:
+            print(sWord, "not found")
+            if fWord in indie:
+                print("Running Single Token Query for:", fWord)
+            else:
+                print(fWord, "not found")
+                ui()
+
         fResults = indie[fWord]
         sResults = indie[sWord]
         fID = fResults.keys()
-        nID = []
+        andID = []
+        i = 1
         for item in fID:
             if item in sResults:
-
-                nID.append(item)
-        for item in nID:
+                andID.append(item)
+        for item in andID:
             title = get_title(item)
             url = get_url(item)
             type = get_type(item)
             subject = get_item(item)
-
-    else:
-        print(fWord, "and", sWord, "not found")
+            print(i, ".  ", title, "\n    ", url, "\n    ", type, ": ", subject, "\n", sep='')
+            i += 1
         ui()
-
-
-
-
-
+        ui()
+    else:
+        print(fWord, "or", sWord, "not found\n")
+        ui()
 ui()
