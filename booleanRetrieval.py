@@ -26,10 +26,15 @@ def ui():
 
 
     elif uRes == 4:
-        query = input("Please enter phrase: ")
+        fWord = input("Please enter first word: ")
+        sWord = input("Please enter second word: ")
+        nearQ(fWord, sWord, 1, indie)
+
     elif uRes == 5:
         fWord = input("Please enter first word: ")
         sWord = input("Please enter second word: ")
+        nearQ(fWord, sWord, 5, indie)
+
     elif uRes == 6:
         print("Thank you and have a nice day!")
         sys.exit()
@@ -120,6 +125,26 @@ def orQ(fWord, sWord, indie):
         ui()
     else:
         print(fWord, "or", sWord, "not found\n")
+        ui()
+
+def nearQ(fWord, sWord, dis, indie):
+    if fWord and sWord in indie:
+        fResults = indie[fWord]
+        sResults = indie[sWord]
+        fID = fResults.keys()
+        andID = []
+        for item in fID:
+            if item in sResults:
+
+                andID.append(item)
+        for item in andID:
+            title = get_title(item)
+            url = get_url(item)
+            type = get_type(item)
+            subject = get_item(item)
+
+    else:
+        print(fWord, "and", sWord, "not found")
         ui()
 
 

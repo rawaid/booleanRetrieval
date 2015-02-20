@@ -52,7 +52,7 @@ def get_type(idIn):
         var = record
     cur.execute("SELECT type FROM Item WHERE id = '%i'" % var)
     for record in cur.fetchall():
-        print(record)
+        return record
 
 def get_item(idIn):
     #use itemID from URLToItem table
@@ -62,7 +62,7 @@ def get_item(idIn):
         var = record
     cur.execute("SELECT name FROM Item WHERE id = '%i'" % var)
     for record in cur.fetchall():
-        return(record)
+        return record
 
 
 
