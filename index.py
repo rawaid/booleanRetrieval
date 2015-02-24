@@ -1,6 +1,7 @@
 __author__ = 'rawaid'
 
 from dbsandbox import get_clean
+from dbsandbox import get_size
 from collections import defaultdict
 #from dbsandbox import
 
@@ -9,7 +10,8 @@ def make_index():
     fileNum = 1
     file = 1
     index = dict()
-    while fileNum < 765:
+    numURL = get_size()
+    while fileNum < numURL:
         cleanText = get_clean(fileNum)
         #print(cleanText)
         wordInd = 0

@@ -72,5 +72,11 @@ def get_item(idIn):
         cleanRecord = cleanRecord[2:-3]
         return cleanRecord
 
+def get_size():
+    cur.execute("SELECT * FROM CachedURL")
+    num=0
+    for record in cur.fetchall():
+        num+=1
+    return num
 
 
