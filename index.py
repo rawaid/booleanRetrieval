@@ -70,7 +70,11 @@ def getNNN():
 
 def getLTC():
     numURL = get_size()
-    index = make_index()
+    if os.path.exists("data/index.p"):
+        index = pickle.load(open("data/index.p", "rb"))
+    else:
+        make_index()
+        index = pickle.load(open("data/index.p", "rb"))
     docLen = dict()
     for i in range(0, numURL):
         docLen[i] = 0

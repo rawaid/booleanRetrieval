@@ -27,7 +27,7 @@ def rrUI():
         ps = PorterStemmer()
 
         uQuery = str.split(uQuery)
-        print(type(uQuery))
+        #print(type(uQuery))
         for word in uQuery:
             word = ps.stem(word.lower())
             print('you are query:', word)
