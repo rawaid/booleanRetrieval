@@ -84,7 +84,7 @@ class Spider:
     def get_terms(self, tokens):
         terms = list()
         for word in tokens:
-            if word not in terms:
-                terms.append(word)
+            #if word not in terms:
+            terms.append(word)
         #terms.sort()
         return terms
