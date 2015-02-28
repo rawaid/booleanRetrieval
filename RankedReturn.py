@@ -30,21 +30,12 @@ def rrUI():
         print(type(uQuery))
         for word in uQuery:
             word = ps.stem(word.lower())
-            print('yr query:', word)
+            print('you are query:', word)
 
         #for i in range(0, len(uQuery)):
             if word in indie:
                print('Getting search results for', word)
-               print(indie[word], '/n')
-
-
-
-
-
-
-
-
-
+               print(indie[word], "/n")
 
 
 rrUI()
