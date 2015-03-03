@@ -87,6 +87,7 @@ def rrUI():
                         docVal = indie[word][docID][0]
                         #print(docVal)
                         for word in uQuery:
+                            word = ps.stem(word.lower())
                             if qDict[word] is None:
                                 l = 0
                             else:
