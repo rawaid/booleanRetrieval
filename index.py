@@ -82,7 +82,7 @@ def getLTC():
         #print("ITEM", term, "\n")
         docFreq = len(index[term].keys())
         #print('docfrq', docFreq)
-        idf = math.log10(numURL/docFreq)
+        idf = math.log(numURL/docFreq)
         for doc in index[term]:
             #print(doc)
             length=len(index[term][doc])

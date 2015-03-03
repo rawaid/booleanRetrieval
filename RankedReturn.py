@@ -57,8 +57,8 @@ def rrUI():
                         # print(scores[docID])
 
             results = Counter(scores)
-            print(results)
-            print(scores)
+            #print(results)
+            #print(scores)
             i = 1
             for k, v in results.most_common(5):
                 #print (k)
@@ -82,19 +82,19 @@ def rrUI():
 
             #for i in range(0, len(uQuery)):
             if word in indie:
-                print('Getting search results for', word)
+                print('Getting search results for', uQuery)
                 for docID in indie[word].keys():
                     docVal = indie[word][docID][0]
                     #print(docVal)
                     for word in uQuery:
                         word = ps.stem(word.lower())
-                        print(qDict[word])
-                        print (word)
+                        #print(qDict[word])
+                        #print (word)
                         if qDict[word] == 0:
                             l = 0
                         else:
-                            l = 1+math.log(qDict[word])
-                        t = l*(get_size()/len(qDict.keys()))
+                            l = 1+math.log(qDict[word]+1)
+                        t = l*math.log((get_size()/len(indie[word].keys()))+1)  #len(qDict.keys()))+1)
                         for item in qDict.keys():
                             mag = math.sqrt((1+math.log(qDict[item]+1))*(get_size()/len(qDict.keys())))
                         c = t/mag
@@ -108,7 +108,8 @@ def rrUI():
                 sURL = get_url(k)
                 sSubject = get_item(k)
                 sType = get_type(k)
-                print(i, ".\t", sTitle, "  (", v, ")\n\t", sURL, "\n\t", sType, ": ", sSubject, "\n", sep='')
+                val = scores[k]
+                print(i, ".\t", sTitle, "  (", val, ")\n\t", sURL, "\n\t", sType, ": ", sSubject, "\n", sep='')
                 i+=1
             print("\n")
             #print(qDict)
