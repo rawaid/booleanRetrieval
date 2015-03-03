@@ -1,7 +1,7 @@
 __author__ = 'Nick'
 
 from index import getLTC, getNNN
-from dbsandbox import get_item, get_title, get_type, get_url, get_size
+from dbsandbox import *
 import sys
 from nltk.stem.porter import PorterStemmer
 from collections import Counter
@@ -36,16 +36,16 @@ def rrUI():
         for docID in range(1, get_size()+1):
             scores[docID] = 0
         if qNorm == 'nnn':
+            print('Getting search results for', uQuery, "\n")
             for word in uQuery:
                 word = ps.stem(word.lower())
                 qDict[word] += 1
-                print('you are query:', word)
+                #print('you are query:', word)
                 #print(qDict[word])
 
 
                 #for i in range(0, len(uQuery)):
                 if word in indie:
-                    print('Getting search results for', word)
                     # print(indie[word], "/n")
                     for docID in indie[word].keys():
                         # docVal = str(len(indie[word][docID])
@@ -60,6 +60,27 @@ def rrUI():
             #print(results)
             #print(scores)
             i = 1
+            itemDict = dict()
+            for q in range(1, get_itemNum()):
+                itemDict[q] = 0
+            for key in range(1, get_size()):
+                #print(key)
+                #theID = get_IDfromTitle(key)
+                itemKey = get_itemID(key)
+                itemDict[itemKey] += scores[key]
+
+            itemRes = Counter(itemDict)
+            print("Item Search Results:")
+            for key, val in itemRes.most_common(5):
+                #theID = get_IDfromTitle(doc)
+                type = get_typeItem(key)
+                subject = get_itemItem(key)
+                itemScore = itemDict[key]
+                print(i, ".\t", type, ": ", subject, "\t(", itemScore, ")", sep="")
+                i += 1
+
+            i = 1
+            print("\nURL Search Results")
             for k, v in results.most_common(5):
                 #print (k)
                 sTitle = get_title(k)
@@ -75,14 +96,14 @@ def rrUI():
         else:
             for word in uQuery:
                 word = ps.stem(word.lower())
-                print('you are query:', word)
+                #print('you are query:', word)
                 qDict[word] += 1
 
 
 
             #for i in range(0, len(uQuery)):
             if word in indie:
-                print('Getting search results for', uQuery)
+                print('Getting search results for', uQuery,"\n")
                 for docID in indie[word].keys():
                     docVal = indie[word][docID][0]
                     #print(docVal)
@@ -101,8 +122,28 @@ def rrUI():
                         qDict[word] = c
                         scores[docID] = qDict[word]*docVal
             results = Counter(scores)
+            i = 1
+            itemDict = dict()
+            for q in range(1, get_itemNum()):
+                itemDict[q] = 0
+            for key in range(1, get_size()):
+                #print(key)
+                #theID = get_IDfromTitle(key)
+                itemKey = get_itemID(key)
+                itemDict[itemKey] += scores[key]
+
+            itemRes = Counter(itemDict)
+            print("Item Search Results:")
+            for key, val in itemRes.most_common(5):
+                #theID = get_IDfromTitle(doc)
+                type = get_typeItem(key)
+                subject = get_itemItem(key)
+                itemScore = itemDict[key]
+                print(i, ".\t", type, ": ", subject, "\t(", itemScore, ")", sep="")
+                i += 1
 
             i = 1
+            print("\nURL Search Results")
             for k, v in results.most_common(5):
                 sTitle = get_title(k)
                 sURL = get_url(k)
@@ -110,7 +151,7 @@ def rrUI():
                 sType = get_type(k)
                 val = scores[k]
                 print(i, ".\t", sTitle, "  (", val, ")\n\t", sURL, "\n\t", sType, ": ", sSubject, "\n", sep='')
-                i+=1
+                i += 1
             print("\n")
             #print(qDict)
             #print(scores)

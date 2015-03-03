@@ -4,10 +4,10 @@ from index import make_index
 from dbsandbox import get_item, get_title, get_type, get_url
 import sys
 from nltk.stem.porter import PorterStemmer
-
+from index import getNNN
 
 def ui():
-    indie = make_index()
+    indie = getNNN()
     print("Choose Query Type:\n1: Single Token Query\n2: AND Query\n3: OR Query",
            "\n4: Phrase Query\n5: Near Query\n6: QUIT")
     uRes = input("Enter Query Type (1-6): ")

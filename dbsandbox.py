@@ -72,6 +72,7 @@ def get_item(idIn):
         cleanRecord = cleanRecord[2:-3]
         return cleanRecord
 
+
 def get_size():
     cur.execute("SELECT * FROM CachedURL")
     num=0
@@ -79,4 +80,44 @@ def get_size():
         num+=1
     return num
 
+def get_itemNum():
+    cur.execute("SELECT * FROM Item")
+    num=0
+    for record in cur.fetchall():
+        num+=1
+    return num
+
+def get_itemID(idIn):
+    cur.execute("SELECT itemID FROM URLToItem WHERE id = '%i'" % idIn)
+    for record in cur.fetchall():
+        var = record
+        var = str(var)
+        var = int(var[1:-2])
+        return var
+
+
+def get_IDfromTitle(title):
+    cur.execute("SELECT id from CachedURL where title = '%s'" % title)
+    for record in cur.fetchall():
+        #print(record)
+        record = str(record)
+        record = int(record[1:-2])
+        #print(record)
+        return record
+
+def get_typeItem(idIn):
+    cur.execute("SELECT type FROM Item WHERE id = '%i'" % idIn)
+    for record in cur.fetchall():
+        cleanRecord = str(record)
+        cleanRecord = cleanRecord[2:-3]
+        return cleanRecord
+
+def get_itemItem(idIn):
+    cur.execute("SELECT name FROM Item WHERE id = '%i'" % idIn)
+    for record in cur.fetchall():
+        cleanRecord = str(record)
+        cleanRecord = cleanRecord[2:-3]
+        return cleanRecord
+
+#get_IDfromTitle("A Tale of Two Cities - Wikipedia, the free encyclopedia")
 
