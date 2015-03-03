@@ -81,26 +81,28 @@ def rrUI():
 
 
             #for i in range(0, len(uQuery)):
-                if word in indie:
-                   print('Getting search results for', word)
-                   for docID in indie[word].keys():
-                        docVal = indie[word][docID][0]
-                        #print(docVal)
-                        for word in uQuery:
-                            word = ps.stem(word.lower())
-                            if qDict[word] is None:
-                                l = 0
-                            else:
-                                l = 1+math.log(qDict[word])
-                            t = l*(get_size()/len(qDict.keys()))
-                            for item in qDict.keys():
-                                mag = math.sqrt((1+math.log(qDict[item]+1))*(get_size()/len(qDict.keys())))
-                            c = t/mag
-                            qDict[word] = c
-                            scores[docID] = qDict[word]*docVal
-                results = Counter(scores)
+            if word in indie:
+                print('Getting search results for', word)
+                for docID in indie[word].keys():
+                    docVal = indie[word][docID][0]
+                    #print(docVal)
+                    for word in uQuery:
+                        word = ps.stem(word.lower())
+                        print(qDict[word])
+                        print (word)
+                        if qDict[word] == 0:
+                            l = 0
+                        else:
+                            l = 1+math.log(qDict[word])
+                        t = l*(get_size()/len(qDict.keys()))
+                        for item in qDict.keys():
+                            mag = math.sqrt((1+math.log(qDict[item]+1))*(get_size()/len(qDict.keys())))
+                        c = t/mag
+                        qDict[word] = c
+                        scores[docID] = qDict[word]*docVal
+            results = Counter(scores)
 
-                i = 1
+            i = 1
             for k, v in results.most_common(5):
                 sTitle = get_title(k)
                 sURL = get_url(k)

@@ -89,7 +89,7 @@ def getLTC():
             #print('len', length)
             termFreq = 1+math.log(length)
             #print('doc', index[term][doc])
-            index[term][doc][0]=termFreq*idf
+            index[term][doc][0]=termFreq#*idf
             #print('doclen', docLen[doc], '\n')
             docLen[doc] += (termFreq*termFreq)
         #print('\n', termFreq)
