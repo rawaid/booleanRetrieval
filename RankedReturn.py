@@ -25,7 +25,7 @@ def rrUI():
     qDict = dict()
     scores = dict()
     if uQuery == 'QUIT' or uQuery == 'quit':
-        print("Thank for your time, Laurence. Have a lovely day.")
+        print("Thank for your time, Doug. Have a lovely day.")
         sys.exit()
     else:
         ps = PorterStemmer()
