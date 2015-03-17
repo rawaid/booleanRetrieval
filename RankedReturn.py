@@ -15,12 +15,15 @@ def rrUI():
     qNorm = input("Please enter SMART variant for queries: ")
     print("Loading Index (Weight = ", dNorm, ")...", sep='')
     print("Calculating TFIDF weights...")
+    print("Query Weighting Scheme:", qNorm)
+    print("\n--------------------------------------------------------------")
+    rankedReturner(qNorm, dNorm)
+
+def rankedReturner(qNorm, dNorm):
     if dNorm == 'nnn':
         indie = getNNN()
     else:
         indie = getLTC()
-    print("Query Weighting Scheme:", qNorm)
-    print("\n--------------------------------------------------------------")
     uQuery = input("Enter Query or 'QUIT': ")
     qDict = dict()
     scores = dict()
@@ -30,7 +33,6 @@ def rrUI():
     else:
         ps = PorterStemmer()
         uQuery = str.split(uQuery)
-        #print(type(uQuery))
         for word in uQuery:
             qDict[ps.stem(word.lower())] = 0
         for docID in range(1, get_size()+1):
@@ -152,10 +154,11 @@ def rrUI():
                 val = scores[k]
                 print(i, ".\t", sTitle, "  (", val, ")\n\t", sURL, "\n\t", sType, ": ", sSubject, "\n", sep='')
                 i += 1
-            print("\n")
+            #print("\n")
             #print(qDict)
             #print(scores)
-            rrUI()
+            #rrUI()
+            rankedReturner(qNorm, indie)
                        #scores[docID] =  qDict[word]*docVal
                    # print(indie[word], "/n")
                    # print('bah', indie[word].values())
