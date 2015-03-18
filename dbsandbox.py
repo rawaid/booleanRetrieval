@@ -118,9 +118,24 @@ def get_itemItem(idIn):
     for record in cur.fetchall():
         cleanRecord = str(record)
         cleanRecord = cleanRecord[2:-3]
-        #print(cleanRecord)
+        print(cleanRecord)
         return cleanRecord
+def get_IDfromItem(itemIn):
+    cur.execute("SELECT id FROM Item WHERE name = '%s'" % itemIn)
+    for record in cur.fetchall():
+        record = str(record)
+        record = int(record[1:-2])
+        #print(record)
+        return record
+def get_itemIDfromID(idIn):
+    cur.execute("SELECT itemID from URLToItem WHERE id = '%i'" % idIn)
+    for record in cur.fetchall():
+        record = str(record)
+        record = int(record[1:-2])
+        #print(record)
+        return record
 
 #get_IDfromTitle("A Tale of Two Cities - Wikipedia, the free encyclopedia")
 #get_itemItem(5)
-
+#get_IDfromItem("The Little Prince")
+#get_itemIDfromID(465)

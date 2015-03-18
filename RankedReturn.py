@@ -36,7 +36,7 @@ def rankedReturner(qNorm, dNorm):
         for word in uQuery:
             qDict[ps.stem(word.lower())] = 0
         for docID in range(1, get_size()+1):
-            scores[docID] = random.random(*.000000001)
+            scores[docID] = random.uniform(.0000000000001, .0000000000002)
         if qNorm == 'nnn':
             print('Getting search results for', uQuery, "\n")
             for word in uQuery:
