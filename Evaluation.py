@@ -5,6 +5,7 @@ import os
 import pickle
 from index import getLTC, getNNN
 from nltk.stem.porter import PorterStemmer
+import random
 
 
 def genReleDic(item):
@@ -20,12 +21,25 @@ def genReleDic(item):
             releDic[i] = 0
     return releDic
 
+def genNN(releDic, indieNNN, itemTitle):
+    ps = PorterStemmer()
+    qDict = dict()
+    scores = dict()
+    query = str.split(itemTitle)
+    for word in query:
+        qDict[ps.stem(word.lower())] = 0
+    for docID in range(1, get_size()+1):
+        scores[docID] = random.uniform(.0000000000001, .0000000000002)
+
+
 def eval():
     indieNNN = getNNN()
     indieLTC = getLTC()
     for i in range(1, get_itemNum()):
         itemTitle = get_itemItem(i)
         releDic = genReleDic(itemTitle)
+        #GETTING NNN.NNN
+
         print(releDic)
 
 eval()

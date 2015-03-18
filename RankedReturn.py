@@ -17,13 +17,14 @@ def rrUI():
     print("Calculating TFIDF weights...")
     print("Query Weighting Scheme:", qNorm)
     print("\n--------------------------------------------------------------")
-    rankedReturner(qNorm, dNorm)
-
-def rankedReturner(qNorm, dNorm):
     if dNorm == 'nnn':
         indie = getNNN()
     else:
         indie = getLTC()
+    rankedReturner(qNorm, indie)
+
+
+def rankedReturner(qNorm, indie):
     uQuery = input("Enter Query or 'QUIT': ")
     qDict = dict()
     scores = dict()
