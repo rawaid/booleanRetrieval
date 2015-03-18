@@ -6,7 +6,7 @@ import sys
 from nltk.stem.porter import PorterStemmer
 from collections import Counter
 import math
-
+import random
 
 def rrUI():
     print("WELCOME TO GOOGLE\nBrought to you by Nick & Ali")
@@ -36,7 +36,7 @@ def rankedReturner(qNorm, dNorm):
         for word in uQuery:
             qDict[ps.stem(word.lower())] = 0
         for docID in range(1, get_size()+1):
-            scores[docID] = 0
+            scores[docID] = random.random(*.000000001)
         if qNorm == 'nnn':
             print('Getting search results for', uQuery, "\n")
             for word in uQuery:
