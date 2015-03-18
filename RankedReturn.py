@@ -30,7 +30,8 @@ def rankedReturner(qNorm, dNorm):
     if uQuery == 'QUIT' or uQuery == 'quit':
         print("Thank for your time, Doug. Have a lovely day.")
         sys.exit()
-    else:
+    elif uQuery.find(':') !=-1:
+        uQuery = uQuery.replace(":","")
         ps = PorterStemmer()
         uQuery = str.split(uQuery)
         for word in uQuery:
