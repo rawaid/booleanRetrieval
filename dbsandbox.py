@@ -85,6 +85,7 @@ def get_itemNum():
     num=0
     for record in cur.fetchall():
         num+=1
+    #print(num)
     return num
 
 def get_itemID(idIn):
@@ -117,7 +118,9 @@ def get_itemItem(idIn):
     for record in cur.fetchall():
         cleanRecord = str(record)
         cleanRecord = cleanRecord[2:-3]
+        #print(cleanRecord)
         return cleanRecord
 
 #get_IDfromTitle("A Tale of Two Cities - Wikipedia, the free encyclopedia")
+#get_itemItem(5)
 

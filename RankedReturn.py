@@ -58,7 +58,7 @@ def rankedReturner(qNorm, dNorm):
                         # print(qDict[word])
                         # print(scores[docID])
 
-            results = Counter(scores)
+
             #print(results)
             #print(scores)
             i = 1
@@ -82,6 +82,7 @@ def rankedReturner(qNorm, dNorm):
                 i += 1
 
             i = 1
+            results = Counter(scores)
             print("\nURL Search Results")
             for k, v in results.most_common(5):
                 #print (k)
@@ -90,7 +91,7 @@ def rankedReturner(qNorm, dNorm):
                 sSubject = get_item(k)
                 sType = get_type(k)
                 print(i, ".\t", sTitle, "  (", v, ")\n\t", sURL, "\n\t", sType, ": ", sSubject, "\n", sep='')
-                i+=1
+                i += 1
             print("\n")
             #print(qDict)
             #print(scores)
@@ -133,6 +134,7 @@ def rankedReturner(qNorm, dNorm):
                 #theID = get_IDfromTitle(key)
                 itemKey = get_itemID(key)
                 itemDict[itemKey] += scores[key]
+
 
             itemRes = Counter(itemDict)
             print("Item Search Results:")
