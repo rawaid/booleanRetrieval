@@ -118,7 +118,7 @@ def get_itemItem(idIn):
     for record in cur.fetchall():
         cleanRecord = str(record)
         cleanRecord = cleanRecord[2:-3]
-        print(cleanRecord)
+        #print(cleanRecord)
         return cleanRecord
 def get_IDfromItem(itemIn):
     cur.execute("SELECT id FROM Item WHERE name = '%s'" % itemIn)

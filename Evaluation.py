@@ -31,7 +31,7 @@ def genNN(releDic, indieNNN, itemTitle):
     for word in query:
         qDict[ps.stem(word.lower())] = 0
     for docID in range(1, get_size()+1):
-        scores[docID] = random.uniform(.0000000000001, .0000000000002)
+        scores[docID] = .00000000001 * random.random()
     for word in query:
         word = ps.stem(word.lower())
         qDict[word] += 1
@@ -40,7 +40,8 @@ def genNN(releDic, indieNNN, itemTitle):
             for docID in indieNNN[word].keys():
                 docVal = indieNNN[word][docID][0]
                 scores[docID] = qDict[word]*docVal
-    print(scores)
+    #print(scores)
+    return scores
 
 def eval():
     indieNNN = getNNN()
@@ -49,8 +50,10 @@ def eval():
         itemTitle = get_itemItem(i)
         releDic = genReleDic(itemTitle)
         #GETTING NNN.NNN
-        genNN(releDic, indieNNN, itemTitle)
-        print(releDic)
+        nnScore = genNN(releDic, indieNNN, itemTitle)
+
+
+        #print(releDic)
 
 eval()
 
