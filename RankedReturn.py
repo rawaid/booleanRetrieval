@@ -32,7 +32,7 @@ def rankedReturner(qNorm, indie):
         print("Thank for your time, Doug. Have a lovely day.")
         sys.exit()
     elif uQuery.find(':') !=-1:
-        uQuery = uQuery.replace(":","")
+        uQuery = uQuery.replace(":", "")
         ps = PorterStemmer()
         uQuery = str.split(uQuery)
         for word in uQuery:
@@ -166,6 +166,8 @@ def rankedReturner(qNorm, indie):
                        #scores[docID] =  qDict[word]*docVal
                    # print(indie[word], "/n")
                    # print('bah', indie[word].values())
+
+
 
 
 rrUI()

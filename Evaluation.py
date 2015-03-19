@@ -23,6 +23,8 @@ def genReleDic(item):
 
 def genNN(releDic, indieNNN, itemTitle):
     ps = PorterStemmer()
+    if itemTitle.find(':') !=-1:
+        itemTitle = itemTitle.replace(":", "")
     qDict = dict()
     scores = dict()
     query = str.split(itemTitle)
@@ -30,7 +32,15 @@ def genNN(releDic, indieNNN, itemTitle):
         qDict[ps.stem(word.lower())] = 0
     for docID in range(1, get_size()+1):
         scores[docID] = random.uniform(.0000000000001, .0000000000002)
+    for word in itemTitle:
+        word = ps.stem(word.lower())
+        qDict[word] += 1
 
+        if word in indieNNN:
+            for docID in indieNNN[word].keys():
+                docVal = indieNNN[word][docID][0]
+                scores[docID] = qDict[word]*docVal
+    print(scores)
 
 def eval():
     indieNNN = getNNN()
@@ -39,7 +49,7 @@ def eval():
         itemTitle = get_itemItem(i)
         releDic = genReleDic(itemTitle)
         #GETTING NNN.NNN
-
+        genNN(releDic, indieNNN, itemTitle)
         print(releDic)
 
 eval()
