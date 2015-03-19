@@ -32,7 +32,7 @@ def genNN(releDic, indieNNN, itemTitle):
         qDict[ps.stem(word.lower())] = 0
     for docID in range(1, get_size()+1):
         scores[docID] = random.uniform(.0000000000001, .0000000000002)
-    for word in itemTitle:
+    for word in query:
         word = ps.stem(word.lower())
         qDict[word] += 1
 
