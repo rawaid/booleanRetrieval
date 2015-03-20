@@ -92,10 +92,12 @@ def genLTC(indie, itemTitle):
     #scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)
     sList = dict()
     scores = sorted(scores.items(), key=operator.itemgetter(1), reverse=True)
+    i = 1
     for key, val in scores:
-        sList[key] = val
+        sList[i] = key
+        i += 1
 
-    print(sList)
+    print("sLIST", sList)
     print(scores)
 
     return scores
