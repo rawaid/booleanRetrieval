@@ -5,6 +5,8 @@ from index import getLTC, getNNN
 from nltk.stem.porter import PorterStemmer
 import random
 import math
+import operator
+from collections import Counter
 
 
 def genReleDic(item):
@@ -43,7 +45,11 @@ def genNNN(indie, itemTitle):
             for docID in indie[word].keys():
                 docVal = indie[word][docID][0]
                 scores[docID] = qDict[word]*docVal
-    scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)
+    scores = Counter(scores)
+    orderList = list()
+    for key, val in scores.most_common(get_size()):
+        orderList += str(key)
+    print(orderList)
     #print(scores[0])
     #print(scores[0][0])
     return scores
@@ -83,11 +89,14 @@ def genLTC(indie, itemTitle):
                 qDict[word] = c
                 scores[docID] = qDict[word]*docVal
 
-    scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)
-    i = 1
-    for docID in scores[i-1][0]:
-        scores[docID] = indie[docID]
-    #print(scores)
+    #scores = sorted(scores.items(), key=lambda x: x[1], reverse=True)
+    sList = dict()
+    scores = sorted(scores.items(), key=operator.itemgetter(1), reverse=True)
+    for key, val in scores:
+        sList[key] = val
+
+    print(sList)
+    print(scores)
 
     return scores
 
@@ -118,9 +127,6 @@ def eval():
         lnScore = genNNN(indieLTC, itemTitle)
         llScore = genLTC(indieLTC, itemTitle)
 
-        for docID in nnScore[i-1]:
-            print(docID)
-            print("---")
         nnPten += getPrec(nnScore, 10)
         nnPr += getPrec(nnScore, rVal)
         #getMAP
