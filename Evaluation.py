@@ -45,14 +45,16 @@ def genNNN(indie, itemTitle):
             for docID in indie[word].keys():
                 docVal = indie[word][docID][0]
                 scores[docID] = qDict[word]*docVal
-    scores = Counter(scores)
-    orderList = list()
-    for key, val in scores.most_common(get_size()):
-        orderList += str(key)
-    print(orderList)
-    #print(scores[0])
+    scores = sorted(scores.items(), key=operator.itemgetter(1), reverse=True)
+    sList = dict()
+    i = 1
+    for key, val in scores:
+        sList[i] = key
+        i += 1
+    print("NN sLIST", sList)
+    print("NN scores", scores)
     #print(scores[0][0])
-    return scores
+    return sList
 
 def genLTC(indie, itemTitle):
     ps = PorterStemmer()
@@ -97,10 +99,10 @@ def genLTC(indie, itemTitle):
         sList[i] = key
         i += 1
 
-    print("sLIST", sList)
-    print(scores)
+    print("LTC sLIST", sList)
+    print("LTC scores", scores)
 
-    return scores
+    return sList
 
 def getPrec(scores, rVal):
     prec = 0
@@ -124,13 +126,18 @@ def eval():
         for i in releDic.keys():
             if releDic[i] == 1:
                 rVal += 1
+        print("nn")
         nnScore = genNNN(indieNNN, itemTitle)
+        print("nl")
         nlScore = genLTC(indieNNN, itemTitle)
+        print("ln")
         lnScore = genNNN(indieLTC, itemTitle)
+        print("ll")
         llScore = genLTC(indieLTC, itemTitle)
 
         nnPten += getPrec(nnScore, 10)
         nnPr += getPrec(nnScore, rVal)
+
         #getMAP
         #getAUC
 
