@@ -51,8 +51,8 @@ def genNNN(indie, itemTitle):
     for key, val in scores:
         sList[i] = key
         i += 1
-    print("NN sLIST", sList)
-    print("NN scores", scores)
+    #print("NN sLIST", sList)
+    #print("NN scores", scores)
     #print(scores[0][0])
     return sList
 
@@ -99,18 +99,57 @@ def genLTC(indie, itemTitle):
         sList[i] = key
         i += 1
 
-    print("LTC sLIST", sList)
-    print("LTC scores", scores)
+    #print("LTC sLIST", sList)
+    #print("LTC scores", scores)
 
     return sList
 
-def getPrec(scores, rVal):
+def genRand(indie):
+    scores = dict()
+    for docID in range(1, get_size()+1):
+        scores[docID] = .00000000001 * random.random()
+    sList = dict()
+    scores = sorted(scores.items(), key=operator.itemgetter(1), reverse=True)
+    i = 1
+    for key, val in scores:
+        sList[i] = key
+        i += 1
+    #print("RAND:", sList)
+    return sList
+
+def getPrec(scores, rVal, releDic):
     prec = 0
     for i in range(1, rVal):
-        if scores[i] == 1:
+        if releDic[scores[i]] == 1:
             prec += 1
     prec = prec/rVal
+    #print(prec)
     return prec
+
+def getMAP(scores, rVal, releDic):
+    curVal = 0
+    valAcc = 0
+    for i in range(1, get_size()):
+        if releDic[scores[i]] == 1:
+            curVal += 1
+            valAcc += (curVal/i)
+    avPrec = valAcc/rVal
+    #print("MAP:", avPrec)
+    return avPrec
+
+def getAUC(scores, rVal, releDic):
+    tpVal = 0
+    fpVal = 0
+    fpTot = get_size()-rVal
+    valAcc = 0
+    for i in range(1, get_size()):
+        if releDic[scores[i]] == 1:
+            tpVal += 1
+        else:
+            fpVal += 1
+            valAcc += ((1/fpTot)*(tpVal/rVal))
+    #print("AUC:", valAcc)
+    return valAcc
 
 
 def eval():
@@ -118,6 +157,7 @@ def eval():
     indieLTC = getLTC()
     nnPten=nlPten=lnPten=llPten=nnPr=nlPr=lnPr=llPr=0
     nnMAP=nlMAP=lnMAP=llMAP=nnAUC=nlAUC=lnAUC=llAUC=0
+    rPten=rPr=rMAP=rAUC=0
     for i in range(1, get_itemNum()):
         itemTitle = get_itemItem(i)
         releDic = genReleDic(itemTitle)
@@ -126,21 +166,53 @@ def eval():
         for i in releDic.keys():
             if releDic[i] == 1:
                 rVal += 1
-        print("nn")
+        #print("nn")
         nnScore = genNNN(indieNNN, itemTitle)
-        print("nl")
+        #print("nl")
         nlScore = genLTC(indieNNN, itemTitle)
-        print("ln")
+        #print("ln")
         lnScore = genNNN(indieLTC, itemTitle)
-        print("ll")
+        #print("ll")
         llScore = genLTC(indieLTC, itemTitle)
+        randOrder = genRand(indieNNN)
 
-        nnPten += getPrec(nnScore, 10)
-        nnPr += getPrec(nnScore, rVal)
+        #NN
+        nnPten += getPrec(nnScore, 10, releDic)
+        nnPr += getPrec(nnScore, rVal, releDic)
+        nnMAP += getMAP(nnScore, rVal, releDic)
+        nnAUC += getAUC(nnScore, rVal, releDic)
 
-        #getMAP
-        #getAUC
+        #NL
+        nlPten += getPrec(nlScore, 10, releDic)
+        nlPr += getPrec(nlScore, rVal, releDic)
+        nlMAP += getMAP(nlScore, rVal, releDic)
+        nlAUC += getAUC(nlScore, rVal, releDic)
 
+        #LN
+        lnPten += getPrec(lnScore, 10, releDic)
+        lnPr += getPrec(lnScore, rVal, releDic)
+        lnMAP += getMAP(lnScore, rVal, releDic)
+        lnAUC += getAUC(lnScore, rVal, releDic)
+
+        #LL
+        llPten += getPrec(llScore, 10, releDic)
+        llPr += getPrec(llScore, rVal, releDic)
+        llMAP += getMAP(llScore, rVal, releDic)
+        llAUC += getAUC(llScore, rVal, releDic)
+
+        #RANDOM
+        rPten += getPrec(randOrder, 10, releDic)
+        rPr += getPrec(randOrder, rVal, releDic)
+        rMAP += getMAP(randOrder, rVal, releDic)
+        rAUC += getAUC(randOrder, rVal, releDic)
+
+    allItem = get_itemNum()
+    print("P@10\tP@R\tMAP\tAUC")
+    print("Evaluating: nnn.nnn\n", nnPten/allItem, "\t", nnPr/allItem, "\t", nnMAP/allItem, "\t", nnAUC/allItem, sep="")
+    print("Evaluating: nnn.ltc\n", nlPten/allItem, "\t", nlPr/allItem, "\t", nlMAP/allItem, "\t", nlAUC/allItem, sep="")
+    print("Evaluating: ltc.nnn\n", lnPten/allItem, "\t", lnPr/allItem, "\t", lnMAP/allItem, "\t", lnAUC/allItem, sep='')
+    print("Evaluating: ltc.ltc\n", llPten/allItem, "\t", llPr/allItem, "\t", llMAP/allItem, "\t", llAUC/allItem, sep='')
+    print("Random Performance:\n", rPten/allItem, "\t", rPr/allItem, "\t", rMAP/allItem, "\t", rAUC/allItem, sep='')
 
 
 
